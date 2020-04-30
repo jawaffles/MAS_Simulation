@@ -22,7 +22,7 @@ rosservice call /quadcopter/enable_motors "enable: true"
 Send Position Commands to Quadcopter:
 
 ```
-rostopic pub /quadcopter/command/pose geometry_msgs/PoseStamped "header:
+rostopic pub /quadcopr/command/pose geometry_msgs/PoseStamped "header:
   seq: 0
   stamp:
     secs: 0
@@ -30,14 +30,15 @@ rostopic pub /quadcopter/command/pose geometry_msgs/PoseStamped "header:
   frame_id: 'world'
 pose:
   position:
-    x: 0.0
-    y: 0.0
-    z: 11.0
+    x: 2.5
+    y: -2.5
+    z: 10.0
   orientation:
     x: 0.0
     y: 0.0
     z: 0.0
     w: 1.0"
+
 ``` 
 -----
 
