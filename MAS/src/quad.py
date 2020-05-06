@@ -49,20 +49,20 @@ def main(args):
     qc = quad_control()
 
     # Start of Sweep
-    qc.send_pos(0,-4,7)
+    qc.send_pos(2,-2,7)
     time.sleep(3)
 
-    x = 0
+    # x = 0
 
-    while x < 10:
-        qc.send_pos(x,-4,7)
-        x += .5
-        time.sleep(3)
+    # while x < 10:
+    #     qc.send_pos(x,-4,7)
+    #     x += .5
+    #     time.sleep(3)
     
-    try:
-        rospy.spin()
-    except KeyboardInterrupt:
-        print "Shutting down ROS Node"
+    # try:
+    #     rospy.spin()
+    # except KeyboardInterrupt:
+    #     print "Shutting down ROS Node"
 
     
 

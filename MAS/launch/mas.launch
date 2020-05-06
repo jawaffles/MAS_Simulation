@@ -10,7 +10,7 @@ A launch file for setting up control of a Husky.
 
 
 <!-- Gazebo -->
-<arg name="world_name" value="$(find MAS)/worlds/crop_field.world"/>
+<arg name="world_name" value="$(find MAS)/worlds/field_1.world"/>
 
 
 <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -26,8 +26,8 @@ A launch file for setting up control of a Husky.
 <group ns="h1">
   <include file="$(find nre_simmultihusky)/launch/husky.launch">
     <arg name="namespace" value="h1" />
-    <arg name="initX" value="2" />
-    <arg name="initY" value="2" />
+    <arg name="initX" value="0" />
+    <arg name="initY" value="0" />
     <arg name="initYaw" value="0" />
   </include>
   <include file="$(find husky_navigation)/launch/move_base.launch">
@@ -39,9 +39,9 @@ A launch file for setting up control of a Husky.
 <group ns="h2">
   <include file="$(find nre_simmultihusky)/launch/husky.launch">
     <arg name="namespace" value="h2" />
-    <arg name="initX" value="-3" />
-    <arg name="initY" value="-3" />
-    <arg name="initYaw" value="3.14" />
+    <arg name="initX" value="5" />
+    <arg name="initY" value="0" />
+    <arg name="initYaw" value="0" />
   </include>
   <include file="$(find husky_navigation)/launch/move_base.launch">
     <arg name="no_static_map" value="true"/>

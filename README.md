@@ -66,3 +66,11 @@ pose:
 ```
 
 
+
+
+Start Panorama Service
+
+roslaunch hugin_panorama hugin_panorama.launch image:=/quadcopter/downward_cam/camera/image
+
+
+

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<!-- 
+A launch file for setting up control of a Husky.
+-->
+<launch>
+
+
+  <node name="rqt_console" pkg="rqt_console" type="rqt_console" output="screen" />
+
+
+<!-- Gazebo -->
+<arg name="world_name" value="$(find MAS)/worlds/field_2.world"/>
+
+
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <arg name="world_name" value="$(arg world_name)"/> <!-- world_name is wrt GAZEBO_RESOURCE_PATH environment variable -->
+  <arg name="paused" value="false"/>
+  <arg name="use_sim_time" value="true"/>
+  <arg name="gui" value="true"/>
+  <arg name="headless" value="false"/>
+  <arg name="debug" value="false"/>
+</include>
+
+
+<group ns="h1">
+  <include file="$(find nre_simmultihusky)/launch/husky.launch">
+    <arg name="namespace" value="h1" />
+    <arg name="initX" value="0" />
+    <arg name="initY" value="2" />
+    <arg name="initYaw" value="0" />
+  </include>
+  <include file="$(find husky_navigation)/launch/move_base.launch">
+    <arg name="no_static_map" value="true"/>
+    <arg name="namespace" value="h1" />
+  </include>
+</group>
+
+<group ns="h2">
+  <include file="$(find nre_simmultihusky)/launch/husky.launch">
+    <arg name="namespace" value="h2" />
+    <arg name="initX" value="5" />
+    <arg name="initY" value="2" />
+    <arg name="initYaw" value="0" />
+  </include>
+  <include file="$(find husky_navigation)/launch/move_base.launch">
+    <arg name="no_static_map" value="true"/>
+    <arg name="namespace" value="h2" />
+  </include>
+</group>
+
+
+<group ns="quadcopter">
+
+   <arg name="name" default="quadrotor"/>
+   <arg name="tf_prefix" default="$(optenv ROS_NAMESPACE)"/>
+   <arg name="x" default="-3.0"/>
+   <arg name="y" default="0.0"/>
+   <arg name="z" default="0.0"/>
+
+   <arg name="use_ground_truth_for_tf" default="true"/>
+   <arg name="use_ground_truth_for_control" default="true"/>
+   <arg name="use_pose_estimation" if="$(arg use_ground_truth_for_control)" default="false"/>
+   <arg name="use_pose_estimation" unless="$(arg use_ground_truth_for_control)" default="true"/>
+
+   <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch">
+     <arg name="name" default="$(arg name)"/>
+     <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_downward_cam.gazebo.xacro"/>
+     <arg name="tf_prefix" default="$(arg tf_prefix)"/>
+     <arg name="x" default="$(arg x)"/>
+     <arg name="y" default="$(arg y)"/>
+     <arg name="z" default="$(arg z)"/>   
+     <arg name="use_ground_truth_for_tf" value="$(arg use_ground_truth_for_tf)"/>
+     <arg name="use_ground_truth_for_control" value="$(arg use_ground_truth_for_control)"/>
+     <arg name="use_pose_estimation" value="$(arg use_pose_estimation)"/>
+   </include>
+
+  </group>
+
+
+<!--******************************-->
+<!-- Debugging tools -->
+<!--******************************-->
+
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find nre_simmultihusky)/rviz/duohusky.rviz" output="screen"/>
+<node name="rqt_topic" pkg="rqt_topic" type="rqt_topic" output="screen" />
+<node name="rqt_graph" pkg="rqt_graph" type="rqt_graph" output="screen" />
+<node name="rqt_tf_tree" pkg="rqt_tf_tree" type="rqt_tf_tree" output="screen" />
+
+</launch>

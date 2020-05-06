@@ -62,6 +62,7 @@ class HuginPanorama():
     self.bash_exec('cpfind -o pano.pto --multirow --celeste pano.pto')
     # do clean
     self.bash_exec('cpclean -o pano.pto pano.pto')
+    print('Just Cleaned')
     # do vertical lines
     self.bash_exec('linefind -o pano.pto pano.pto')
     # do optimize locations
